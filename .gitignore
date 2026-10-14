@@ -1,0 +1,49 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Dependencies & Environments
+**/node_modules/
+**/venv/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+
+# Builds & Outputs
+**/dist/
+**/build/
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+coverage/
+**/coverage/
+
+# IDE / Editor files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Secrets & Environment variables
+*.env
+*.env.*
+*.env.json
+!.env.example
+!.env.json.example
+
+# Signing & Keys
+*.keystore
+*.jks
+key.properties
+*.p8
+*.p12
+*.mobileprovision
+
+# Cloudflare & Temp tools
+.wrangler/
+strix_runs/
+
+# Logs
+*.log
