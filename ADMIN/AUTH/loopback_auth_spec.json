@@ -1,0 +1,13 @@
+{
+  "authScheme": "LoopbackBearerSession",
+  "isolation": "127.0.0.1",
+  "sessionDurationMinutes": 60,
+  "mfa": {
+    "requiredForRoles": ["SuperAdmin"],
+    "methods": ["TOTP", "HardwareKey"]
+  },
+  "lockoutPolicy": {
+    "maxAttempts": 5,
+    "lockoutDurationMinutes": 15
+  }
+}

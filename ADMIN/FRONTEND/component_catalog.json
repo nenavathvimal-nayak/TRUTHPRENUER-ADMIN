@@ -1,0 +1,12 @@
+{
+  "designSystem": "Truthprenuer Admin Visual Telemetry",
+  "components": [
+    { "name": "Layout", "path": "admin_panel/src/components/Layout.tsx", "type": "Shell" },
+    { "name": "VerificationVelocityChart", "path": "admin_panel/src/components/visuals/VerificationVelocityChart.tsx", "type": "Interactive SVG Area/Line Chart" },
+    { "name": "CategoryDonutChart", "path": "admin_panel/src/components/visuals/CategoryDonutChart.tsx", "type": "Interactive SVG Multi-Arc Donut" },
+    { "name": "SystemMetricsGauges", "path": "admin_panel/src/components/visuals/SystemMetricsGauges.tsx", "type": "Circular SVG Radial Gauges" },
+    { "name": "SecurityPostureRadar", "path": "admin_panel/src/components/visuals/SecurityPostureRadar.tsx", "type": "Hexagonal SVG Radar Chart" },
+    { "name": "ActivityHeatmap", "path": "admin_panel/src/components/visuals/ActivityHeatmap.tsx", "type": "7x8 Matrix Density Map" },
+    { "name": "GlobalMeshNodes", "path": "admin_panel/src/components/visuals/GlobalMeshNodes.tsx", "type": "Realtime Edge Ping Monitor" }
+  ]
+}

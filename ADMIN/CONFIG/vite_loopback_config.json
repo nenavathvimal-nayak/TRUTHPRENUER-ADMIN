@@ -1,0 +1,14 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 60135,
+    "strictPort": true,
+    "cors": false
+  },
+  "preview": {
+    "host": "127.0.0.1",
+    "port": 60135,
+    "strictPort": true
+  },
+  "canonicalViteConfigFile": "admin_panel/vite.config.ts"
+}

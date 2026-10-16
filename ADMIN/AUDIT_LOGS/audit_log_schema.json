@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AdminActionAuditLog",
+  "type": "object",
+  "required": ["timestamp", "adminId", "action", "resource", "originIp", "status"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "adminId": { "type": "string" },
+    "action": { "type": "string", "enum": ["CLAIM_MODERATE", "USER_ROLE_CHANGE", "SCHEMA_MIGRATE", "SECURITY_POLICY_UPDATE"] },
+    "resource": { "type": "string" },
+    "originIp": { "type": "string", "pattern": "^127\\.0\\.0\\.1$" },
+    "status": { "type": "string", "enum": ["SUCCESS", "DENIED", "ERROR"] },
+    "metadata": { "type": "object" }
+  }
+}

@@ -133,7 +133,13 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 
 ## 6. Verification Checklist
 
+Run the comprehensive workspace validation script from root:
+```bash
+./DEVTOOLS/SCRIPTS/validate_workspace.sh
+```
+
 - [ ] `git submodule status` reports a clean submodule reference without a leading `-` (uninitialized).
+- [ ] `./DEVTOOLS/SCRIPTS/validate_workspace.sh` passes with zero errors (all 22 checks passing).
 - [ ] Admin console boots successfully on `http://127.0.0.1:60135`.
-- [ ] `flutter pub get` and `flutter analyze` execute without fatal dependency errors.
+- [ ] `flutter pub get` and `flutter test` execute cleanly.
 - [ ] No `.env` or secret keys are present in untracked/staged git files.

@@ -1,0 +1,13 @@
+{
+  "application": "Truthprenuer Admin Console",
+  "rootEntry": "admin_panel/src/main.tsx",
+  "appShell": "admin_panel/src/App.tsx",
+  "routes": [
+    { "path": "/", "name": "Dashboard", "component": "admin_panel/src/pages/Dashboard.tsx", "role": "Moderator" },
+    { "path": "/users", "name": "User Management", "component": "admin_panel/src/pages/Users.tsx", "role": "Auditor" },
+    { "path": "/analytics", "name": "Analytics & Metrics", "component": "admin_panel/src/pages/Analytics.tsx", "role": "Moderator" },
+    { "path": "/security", "name": "Security & Network", "component": "admin_panel/src/pages/Security.tsx", "role": "SuperAdmin" },
+    { "path": "/database", "name": "Database & Storage", "component": "admin_panel/src/pages/Database.tsx", "role": "SuperAdmin" },
+    { "path": "/settings", "name": "System Configuration", "component": "admin_panel/src/pages/Settings.tsx", "role": "SuperAdmin" }
+  ]
+}

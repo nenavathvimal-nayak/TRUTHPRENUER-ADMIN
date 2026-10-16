@@ -9,15 +9,13 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
-SUBMODULE_ADMIN_LAUNCHER="${WORKSPACE_ROOT}/USERS/FLUTTER/taeed_flutter_source/ADMIN/RUN_LOCAL/start_admin_60135.sh"
+ADMIN_LAUNCHER="${WORKSPACE_ROOT}/ADMIN/RUN_LOCAL/start_admin_60135.sh"
 
-if [ ! -f "${SUBMODULE_ADMIN_LAUNCHER}" ]; then
-    echo "ERROR: Submodule admin launcher not found at:"
-    echo "  ${SUBMODULE_ADMIN_LAUNCHER}"
-    echo "Have you initialized submodules? Run:"
-    echo "  git submodule update --init --recursive"
+if [ ! -f "${ADMIN_LAUNCHER}" ]; then
+    echo "ERROR: Admin launcher not found at:"
+    echo "  ${ADMIN_LAUNCHER}"
     exit 1
 fi
 
-chmod +x "${SUBMODULE_ADMIN_LAUNCHER}"
-exec "${SUBMODULE_ADMIN_LAUNCHER}" "$@"
+chmod +x "${ADMIN_LAUNCHER}"
+exec "${ADMIN_LAUNCHER}" "$@"

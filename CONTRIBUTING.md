@@ -11,7 +11,7 @@ Thank you for contributing to the Truthprenuer ecosystem. Because this workspace
    - Edits in `USERS/FLUTTER/taeed_flutter_source/` (including `ADMIN/`, `USERS/`, `backend/`, and `DATABASE/`) must be committed inside the **submodule directory** to `Truthprenuer.git`.
 2. **Submodule Pointer Discipline:**
    - When pushing commits to `Truthprenuer.git`, you must also advance the submodule gitlink pointer in `TRUTHPRENUER-ADMIN` and commit it.
-   - See [COMMIT_AND_PUSH_WORKFLOW.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/REPOSITORY_MANAGEMENT/COMMIT_AND_PUSH_WORKFLOW.md) for step-by-step commands.
+   - See [COMMIT_AND_PUSH_WORKFLOW.md](PRODUCT/REPOSITORY_MANAGEMENT/COMMIT_AND_PUSH_WORKFLOW.md) for step-by-step commands.
 3. **Admin Localhost Isolation:**
    - The Admin console is local-only (`127.0.0.1:60135`). Never modify server binding configurations to expose `0.0.0.0` or allow WAN/LAN ingress.
 4. **Never Commit Secrets:**

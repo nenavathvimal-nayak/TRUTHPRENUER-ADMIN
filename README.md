@@ -1,98 +1,83 @@
-# TRUTHPRENUER-ADMIN — Main Workspace & Admin Console
+# TRUTHPRENUER-ADMIN — Workspace Orchestrator & Admin Console Hub
 
-Welcome to the **Truthprenuer Admin & Workspace Orchestration Repository**. This repository serves as the central operational hub, management workspace, and integration point for the Truthprenuer ecosystem.
+Welcome to the **Truthprenuer Admin & Workspace Orchestration Repository**. This repository is the sole authoritative owner of the Administrative Console UI, the Local Privileged Admin API, workspace orchestration, and cross-repository verification.
 
 ---
 
-## 1. Dual-Repository Architectural Model
+## 1. Multi-Repository Ownership Architecture
 
-Truthprenuer is architected across two distinct, independently maintained GitHub repositories:
+The Truthprenuer engineering system is partitioned across three distinct repositories with strict separation of concerns:
 
-1. **`TRUTHPRENUER-ADMIN` (This Repository)**
-   - **GitHub Remote:** `https://github.com/nenavathvimal-nayak/TRUTHPRENUER-ADMIN.git`
-   - **Role:** Main project orchestrator, workspace integration, root devtools, and architectural specifications.
-   - **Nesting:** Contains the independent Flutter core as a Git Submodule at `USERS/FLUTTER/taeed_flutter_source`.
-
-2. **`taeed_flutter_source` (Independent Submodule Repository)**
-   - **GitHub Remote:** `https://github.com/nenavathvimal-nayak/Truthprenuer.git`
-   - **Role:** Multi-platform Flutter client application (iOS, Android, Web, Desktop), FastAPI gateway backend, Supabase database schemas, and hypothesis scoring algorithms.
-
-> [!NOTE]
-> For complete details on repository boundaries, ownership, and synchronization, see [REPOSITORY_RELATIONSHIP.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/REPOSITORY_MANAGEMENT/REPOSITORY_RELATIONSHIP.md).
+| Repository | GitHub Remote | Ownership & Purpose | Security Boundary |
+|---|---|---|---|
+| **`TRUTHPRENUER-ADMIN`** (This Repo) | `https://github.com/nenavathvimal-nayak/TRUTHPRENUER-ADMIN.git` | **Admin Console UI** (React 19 / Vite 8), **Local Privileged Admin API** (FastAPI), Workspace Orchestration | **Strict Localhost Only** (`127.0.0.1:60135` UI, `127.0.0.1:60136` API). Zero public ingress. |
+| **`Truthprenuer`** (Submodule) | `https://github.com/nenavathvimal-nayak/Truthprenuer.git` | **User-Facing Applications Only** (Flutter Universal Client: Web, iOS, Android, Desktop) | Public deployment to app stores & consumer web hosting. Zero Admin UI code. |
+| **`TRUTHPRENUER-PLATFORM`** | `https://github.com/nenavathvimal-nayak/TRUTHPRENUER-PLATFORM.git` | **Shared Platform Core**: Public APIs, PostgreSQL schemas, algorithms, and container infrastructure | Cloud-hosted services. Never exposes administrative endpoints. |
 
 ---
 
 ## 2. Workspace Directory Structure
 
 ```text
-TRUTHPRENUER-ADMIN/
-│
+TRUTHPRENUER-ADMIN/ (Parent Orchestrator & Admin Hub)
 ├── .git/                                      # Main repository Git metadata
-├── .gitmodules                                # Submodule registration for taeed_flutter_source
+├── .gitmodules                                # Submodule registration for Truthprenuer
 ├── .gitignore                                 # Root protection (secrets, node_modules, build outputs)
 ├── README.md                                  # Workspace overview (this file)
 ├── CONTRIBUTING.md                            # Development & commit standards
 ├── SECURITY.md                                # Security & loopback isolation policy
 ├── CHANGELOG.md                               # Release & architectural change history
 │
+├── ADMIN/                                     # Sole Source of Truth for Admin Console
+│   ├── src/                                   # React 19 / Vite 8 frontend components & pages
+│   ├── backend/                               # Local-only privileged Admin API (127.0.0.1:60136)
+│   ├── package.json & vite.config.ts          # Bound strictly to 127.0.0.1:60135 (strictPort: true)
+│   ├── TESTS/                                 # Admin loopback & privileged API test suites
+│   └── RUN_LOCAL/                             # Dedicated local startup scripts
+│
 ├── DEVTOOLS/
 │   └── SCRIPTS/
-│       └── start_admin_60135.sh               # Root launcher for private Admin Console
+│       ├── start_admin_60135.sh               # Root launcher for Admin UI (127.0.0.1:60135)
+│       ├── start_admin_api_60136.sh           # Root launcher for Privileged Admin API (127.0.0.1:60136)
+│       └── validate_workspace.sh              # 15-point cross-repo integration validator
 │
 ├── PRODUCT/
-│   ├── REPOSITORY_MANAGEMENT/
-│   │   ├── REPOSITORY_RELATIONSHIP.md         # Dual-repo architecture & ownership rules
-│   │   ├── CLONE_AND_SETUP.md                 # Complete developer onboarding guide
-│   │   ├── COMMIT_AND_PUSH_WORKFLOW.md        # Independent commit & push instructions
-│   │   └── REPOSITORY_INVENTORY.md            # Git telemetry & remote tracking inventory
-│   └── QA_REPORTS/
-│       └── REPOSITORY_INTEGRATION_REPORT.md   # Architectural QA report & verification
+│   ├── REPOSITORY_MANAGEMENT/                 # Architecture, inventory, setup & migration plans
+│   └── QA_REPORTS/                            # Integration QA reports & empirical test evidence
 │
 └── USERS/
     └── FLUTTER/
-        └── taeed_flutter_source/              # Independent Git Submodule (Truthprenuer.git)
-            ├── ADMIN/                         # React 19 / Vite 8 Private Admin Console
-            ├── USERS/                         # Flutter 3.29 Multi-platform Application
-            ├── backend/                       # FastAPI gateway backend
-            ├── DATABASE/                      # Database migrations, policies & triggers
-            └── ALGORITHMS/                    # Hypothesis validation & scoring algorithms
+        └── taeed_flutter_source/              # Truthprenuer Submodule (User Applications Only)
+            └── USERS/                         # Flutter 3.29 universal client (Web, iOS, Android, Desktop)
 ```
 
 ---
 
-## 3. Quick Start
+## 3. Quick Start & Local Execution
 
-### 3.1 Cloning with Submodules
+### 3.1 Initializing the Workspace
 ```bash
 git clone --recurse-submodules https://github.com/nenavathvimal-nayak/TRUTHPRENUER-ADMIN.git
 cd TRUTHPRENUER-ADMIN
 ```
 
-If already cloned without `--recurse-submodules`:
-```bash
-git submodule update --init --recursive
-```
+### 3.2 Running the Private Admin Console
+The Admin Console and its privileged API are strictly bound to local loopback:
 
-### 3.2 Running the Private Localhost Admin Console
-The Admin Console is strictly bounded to `http://127.0.0.1:60135` (fail-fast, zero LAN/WAN exposure):
 ```bash
+# Terminal 1: Start the Local Privileged Admin API (Port 60136)
+./DEVTOOLS/SCRIPTS/start_admin_api_60136.sh
+
+# Terminal 2: Start the Admin UI (Port 60135)
 ./DEVTOOLS/SCRIPTS/start_admin_60135.sh
 ```
-Open browser at: **`http://127.0.0.1:60135`**
 
-### 3.3 Running the Flutter Client
+- **Admin UI:** `http://127.0.0.1:60135`
+- **Privileged Admin API:** `http://127.0.0.1:60136`
+
+### 3.3 Validating Workspace Health & Security
+Run the automated validator to verify all 15 ownership, security, and test checks:
+
 ```bash
-cd USERS/FLUTTER/taeed_flutter_source/USERS
-flutter pub get
-flutter run -d chrome --web-port=8080
+./DEVTOOLS/SCRIPTS/validate_workspace.sh
 ```
-
----
-
-## 4. Documentation Index
-
-- **Architecture & Ownership:** [REPOSITORY_RELATIONSHIP.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/REPOSITORY_MANAGEMENT/REPOSITORY_RELATIONSHIP.md)
-- **Setup & Installation:** [CLONE_AND_SETUP.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/REPOSITORY_MANAGEMENT/CLONE_AND_SETUP.md)
-- **Commit & Push Guide:** [COMMIT_AND_PUSH_WORKFLOW.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/REPOSITORY_MANAGEMENT/COMMIT_AND_PUSH_WORKFLOW.md)
-- **Inventory & Telemetry:** [REPOSITORY_INVENTORY.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/REPOSITORY_MANAGEMENT/REPOSITORY_INVENTORY.md)
-- **Integration QA Report:** [REPOSITORY_INTEGRATION_REPORT.md](file:///Volumes/NAYAK/TRUTHRENUER%20ADM/TRUTHPRENUER-ADMIN/PRODUCT/QA_REPORTS/REPOSITORY_INTEGRATION_REPORT.md)

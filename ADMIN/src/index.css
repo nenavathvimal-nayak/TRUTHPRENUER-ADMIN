@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #F44A22;
+  --color-primary-hover: #D73D19;
+  --color-background: #161616;
+  --color-card: #1F1F1F;
+  --color-card-border: #2A2A2A;
+  --color-silver: #FEF8E8;
+  --color-text: #FFFFFF;
+  --color-text-dim: #A0A0A0;
+}
+
+body {
+  background-color: #161616;
+  color: #FFFFFF;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}

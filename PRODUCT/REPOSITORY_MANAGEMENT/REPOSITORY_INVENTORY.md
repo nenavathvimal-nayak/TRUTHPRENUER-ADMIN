@@ -9,13 +9,13 @@ This inventory logs the operational parameters, Git metadata, remotes, and branc
 | Parameter | Value |
 |---|---|
 | **Repository Name** | `TRUTHPRENUER-ADMIN` |
-| **Local File Path** | `/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN` |
-| **Git Root** | `/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN/.git` |
+| **Local File Path** | `<workspace_root>` |
+| **Git Root** | `<workspace_root>/.git` |
 | **Active Branch** | `main` |
 | **Configured Remote** | `origin` |
 | **Remote URL** | `https://github.com/nenavathvimal-nayak/TRUTHPRENUER-ADMIN.git` |
-| **Active Commit SHA** | `9770964` |
-| **Working Tree State** | Clean (Submodule moved to `USERS/FLUTTER/taeed_flutter_source`) |
+| **Active Commit SHA** | `20e75a8` |
+| **Working Tree State** | Verified Clean |
 | **Role & Purpose** | Parent Orchestrator, Workspace Integration, Workspace Runbooks & Security Specs |
 
 ### Key Files in Parent Repository
@@ -31,14 +31,14 @@ This inventory logs the operational parameters, Git metadata, remotes, and branc
 
 | Parameter | Value |
 |---|---|
-| **Repository Name** | `taeed_flutter_source` |
-| **Local File Path** | `/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN/USERS/FLUTTER/taeed_flutter_source` |
+| **Repository Name** | `taeed_flutter_source` (Remote: `Truthprenuer`) |
+| **Local File Path** | `<workspace_root>/USERS/FLUTTER/taeed_flutter_source` |
 | **Git Root** | Dedicated Git metadata mapped via `.git` file / gitdir |
 | **Active Branch** | `main` |
 | **Configured Remote** | `origin` |
 | **Remote URL** | `https://github.com/nenavathvimal-nayak/Truthprenuer.git` |
 | **Active Commit SHA** | `fd51306` |
-| **Working Tree State** | Clean (Fully synchronized with `origin/main`) |
+| **Working Tree State** | Verified Clean |
 | **Role & Purpose** | Flutter Universal Mobile/Web Clients, FastAPI Backend, Database Migrations, Algorithms |
 
 ### Subsystems Hosted in Submodule

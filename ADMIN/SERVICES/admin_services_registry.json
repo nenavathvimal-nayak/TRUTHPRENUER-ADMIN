@@ -1,0 +1,19 @@
+{
+  "services": [
+    {
+      "name": "ConsensusQueueService",
+      "description": "Orchestrates incoming claim verification and pending disputes",
+      "endpoint": "/api/v1/claims"
+    },
+    {
+      "name": "NodeTelemetryService",
+      "description": "Polls loopback edge consensus latency and health vectors",
+      "intervalSeconds": 5
+    },
+    {
+      "name": "DatabaseHealthService",
+      "description": "Monitors Supabase Postgres connection pool and RLS execution",
+      "statusCheck": "SELECT 1"
+    }
+  ]
+}

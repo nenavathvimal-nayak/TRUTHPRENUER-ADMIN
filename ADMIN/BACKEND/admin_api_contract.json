@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Truthprenuer Local Admin API",
+    "version": "1.0.0",
+    "description": "Zero-trust administrative endpoints accessible exclusively via loopback (127.0.0.1)."
+  },
+  "servers": [
+    { "url": "http://127.0.0.1:8000", "description": "Local backend loopback server" }
+  ],
+  "paths": {
+    "/health/liveness": {
+      "get": {
+        "summary": "Check backend process liveness",
+        "responses": { "200": { "description": "Service is live" } }
+      }
+    },
+    "/api/v1/claims/verify": {
+      "post": {
+        "summary": "Execute algorithmic truth verification",
+        "responses": { "200": { "description": "Verification result payload" } }
+      }
+    }
+  }
+}

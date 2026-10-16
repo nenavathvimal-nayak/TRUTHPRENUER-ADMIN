@@ -9,7 +9,7 @@ This document provides explicit, step-by-step instructions for developers making
 Always know which Git repository root owns the file you are modifying:
 
 ```text
-/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN/   <-- Parent Git Root (TRUTHPRENUER-ADMIN.git)
+<workspace_root>/                                     <-- Parent Git Root (TRUTHPRENUER-ADMIN.git)
 │
 ├── PRODUCT/                                          <-- Owned by Parent
 ├── DEVTOOLS/                                         <-- Owned by Parent
@@ -31,7 +31,7 @@ Use this workflow when editing files in `PRODUCT/`, `DEVTOOLS/`, or root configs
 
 ```bash
 # 1. From the repository root:
-cd "/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN"
+cd "$(git rev-parse --show-toplevel)"
 
 # 2. Check current status
 git status
@@ -55,7 +55,7 @@ Use this workflow when modifying Flutter code (`USERS/`), React Admin code (`ADM
 
 ```bash
 # 1. Enter the submodule directory
-cd "/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN/USERS/FLUTTER/taeed_flutter_source"
+cd USERS/FLUTTER/taeed_flutter_source
 
 # 2. Verify you are on the expected branch
 git branch -vv
@@ -85,7 +85,7 @@ Whenever the submodule has advanced (either via local commit or git pull):
 
 ```bash
 # 1. Return to the main repository root
-cd "/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN"
+cd "$(git rev-parse --show-toplevel)"
 
 # 2. Observe git status
 git status
@@ -111,7 +111,7 @@ git push origin main
 To pull the latest commits for the main repository and synchronize all nested submodules to their recorded commits:
 
 ```bash
-cd "/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN"
+cd "$(git rev-parse --show-toplevel)"
 
 # Pull parent repo commits and update submodules recursively
 git pull --recurse-submodules
@@ -122,7 +122,7 @@ git submodule update --init --recursive
 To bring in changes that teammates pushed directly to `Truthprenuer.git`:
 
 ```bash
-cd "/Volumes/NAYAK/TRUTHRENUER ADM/TRUTHPRENUER-ADMIN/USERS/FLUTTER/taeed_flutter_source"
+cd USERS/FLUTTER/taeed_flutter_source
 git pull origin main
 
 # Then update parent pointer (Scenario C)

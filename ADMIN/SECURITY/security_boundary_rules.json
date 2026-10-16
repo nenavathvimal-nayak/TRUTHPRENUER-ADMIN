@@ -1,0 +1,28 @@
+{
+  "boundaryRules": [
+    {
+      "ruleId": "ADM-SEC-001",
+      "name": "Strict Loopback Host Binding",
+      "enforcement": "Vite dev/preview server MUST bind exclusively to 127.0.0.1, never 0.0.0.0",
+      "status": "ENFORCED"
+    },
+    {
+      "ruleId": "ADM-SEC-002",
+      "name": "Dedicated Port Reservation",
+      "enforcement": "Port 60135 with strictPort: true to prevent auto-increment fallback",
+      "status": "ENFORCED"
+    },
+    {
+      "ruleId": "ADM-SEC-003",
+      "name": "Origin Verification",
+      "enforcement": "FastAPI backend validates Origin == http://127.0.0.1:60135 for privileged actions",
+      "status": "ENFORCED"
+    },
+    {
+      "ruleId": "ADM-SEC-004",
+      "name": "Zero Public Deployment",
+      "enforcement": "Admin assets are excluded from user build pipelines and cloud CD workflows",
+      "status": "ENFORCED"
+    }
+  ]
+}

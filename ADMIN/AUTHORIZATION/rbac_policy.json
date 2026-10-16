@@ -1,0 +1,16 @@
+{
+  "roles": {
+    "SuperAdmin": {
+      "description": "Full access to database migrations, security rules, and user roles",
+      "permissions": ["system:write", "database:admin", "security:manage", "users:all"]
+    },
+    "ComplianceAuditor": {
+      "description": "Read-only access to audit logs and consensus verification traces",
+      "permissions": ["logs:read", "metrics:read", "claims:read"]
+    },
+    "EvidenceModerator": {
+      "description": "Manage claims, dispute evidence, and approve consensus batches",
+      "permissions": ["claims:write", "evidence:review", "consensus:flag"]
+    }
+  }
+}
