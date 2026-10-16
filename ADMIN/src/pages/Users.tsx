@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Ban, CheckCircle2, Search, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useAdminAuth } from '../components/AdminAuthGuard';
 import { supabase } from '../lib/supabase';
+import { AdminApiClient } from '../lib/adminApi';
 
 interface UserRecord {
   id: string;
@@ -69,34 +70,43 @@ export function Users() {
     if (!reason || !reason.trim()) return;
 
     try {
-      // 1. Update profiles table in Supabase
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .update({
-          is_suspended: newSuspendedState,
-          suspended_at: newSuspendedState ? new Date().toISOString() : null,
-          suspension_reason: newSuspendedState ? reason.trim() : null,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', targetUser.id);
+      // 1. Try local Privileged Admin API first
+      const apiResult = newSuspendedState 
+        ? await AdminApiClient.suspendUser(targetUser.id, reason.trim())
+        : await AdminApiClient.restoreUser(targetUser.id, reason.trim());
 
-      if (updateError) {
-        setActionFeedback(`Action failed: ${updateError.message}`);
-        return;
+      if (apiResult.success) {
+        setActionFeedback(`Privileged API: User ${targetUser.full_name} was ${newSuspendedState ? 'SUSPENDED' : 'RESTORED'}. WORM audit log saved.`);
+      } else {
+        // Fallback to direct client RPC/update if local API daemon not active
+        const { error: updateError } = await supabase
+          .from('profiles')
+          .update({
+            is_suspended: newSuspendedState,
+            suspended_at: newSuspendedState ? new Date().toISOString() : null,
+            suspension_reason: newSuspendedState ? reason.trim() : null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', targetUser.id);
+
+        if (updateError) {
+          setActionFeedback(`Action failed: ${updateError.message}`);
+          return;
+        }
+
+        // Persist audit log
+        await supabase.from('admin_audit_logs').insert({
+          event_id: `evt-${crypto.randomUUID()}`,
+          actor_id: currentAdmin?.id,
+          actor_role: currentAdmin?.role || 'Admin',
+          action: newSuspendedState ? 'USER_SUSPENDED' : 'USER_RESTORED',
+          target_type: 'user',
+          target_id: targetUser.id,
+          result: 'SUCCESS',
+          reason: reason.trim(),
+          details: { target_name: targetUser.full_name, previous_status: targetUser.is_suspended },
+        });
       }
-
-      // 2. Persist audit log
-      await supabase.from('admin_audit_logs').insert({
-        event_id: `evt-${crypto.randomUUID()}`,
-        actor_id: currentAdmin?.id,
-        actor_role: currentAdmin?.role || 'Admin',
-        action: newSuspendedState ? 'USER_SUSPENDED' : 'USER_RESTORED',
-        target_type: 'user',
-        target_id: targetUser.id,
-        result: 'SUCCESS',
-        reason: reason.trim(),
-        details: { target_name: targetUser.full_name, previous_status: targetUser.is_suspended },
-      });
 
       setUsers(prev => prev.map(u => {
         if (u.id === targetUser.id) {
